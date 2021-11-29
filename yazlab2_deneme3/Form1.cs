@@ -14,8 +14,6 @@ namespace yazlab2_deneme3
     public partial class Form1 : Form
     {
 
-        
-        
 
         static int[,] sudoku1 = new int[9, 9];
         static int[,] sudoku2 = new int[9, 9];
@@ -24,9 +22,22 @@ namespace yazlab2_deneme3
         static int[,] sudoku5 = new int[9, 9];
 
 
+        static Label label1 = new Label();
+        static Label label2 = new Label();
+        static Label label3 = new Label();
+        static Label label4 = new Label();
+        static Label label5 = new Label();
+        static Label label6 = new Label();
+
+        static Button baslatButonu = new Button();
+        static Button grafikButonu = new Button();
+
+
+        static List<int[]> koseSayilari = new List<int[]>();
+        Form2 grafikArayuz = new Form2();
         const int butonBoyutu = 35;
         static Button[,] buttons = new Button[21, 21];
-       
+
 
         int[,] intArray = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -49,13 +60,13 @@ namespace yazlab2_deneme3
                             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },};
-        Form2 grafikArayuz = new Form2();
+
 
 
         public Form1()
         {
 
-           
+
 
             Control.CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
@@ -91,9 +102,6 @@ namespace yazlab2_deneme3
                     liste.Add(array);
                 }
             }
-
-
-
 
 
             verileriDuzenle(intArray, liste);
@@ -259,16 +267,6 @@ namespace yazlab2_deneme3
         }
 
 
-        static Label label1 = new Label();
-        static Label label2 = new Label();
-        static Label label3 = new Label();
-        static Label label4 = new Label();
-        static Label label5 = new Label();
-        static Label label6 = new Label();
-        static Button baslatButonu = new Button();
-        static Button grafikButonu = new Button();
-        static List<int[]> koseSayilari = new List<int[]>();
-
         public void sudokuOlustur()
         {
             for (int i = 0; i < 21; i++)
@@ -321,7 +319,7 @@ namespace yazlab2_deneme3
             };
 
 
-            grafikButonu.SetBounds(875,80,150, 50);
+            grafikButonu.SetBounds(875, 80, 150, 50);
             grafikButonu.Text = "gariği göster";
             grafikButonu.Enabled = false;
             this.Controls.Add(grafikButonu);
@@ -334,7 +332,7 @@ namespace yazlab2_deneme3
                 grafikButonu.Enabled = false;
             };
 
-            
+
 
             label1.SetBounds(800, 150, 400, 100);
             label1.Text = "1. thread";
@@ -466,39 +464,36 @@ namespace yazlab2_deneme3
 
         }
 
-        /// <summary>
-        /// /////////////////////////////////////////////////////////
-        /// </summary>
         static int N = 9;
 
-        static bool sudokuCoz(int[,] grid, List<int[,]> sonuclar, int row,
-                                int col, int id)
+        static bool sudokuCoz(int[,] matris, List<int[,]> sonuclar, int satir,
+                                int sutun, int id)
         {
 
-            if (row == N - 1 && col == N)
+            if (satir == N - 1 && sutun == N)
                 return true;
 
-            if (col == N)
+            if (sutun == N)
             {
-                row++;
-                col = 0;
+                satir++;
+                sutun = 0;
             }
 
 
-            if (grid[row, col] != 0)
-                return sudokuCoz(grid, sonuclar, row, col + 1, id);
+            if (matris[satir, sutun] != 0)
+                return sudokuCoz(matris, sonuclar, satir, sutun + 1, id);
 
-            for (int num = 1; num < 10; num++)
+            for (int i = 1; i < 10; i++)
             {
-                if (isSafe(grid, sonuclar, row, col, num, id))
+                if (kontrolEt(matris, sonuclar, satir, sutun, i, id))
                 {
 
-                    grid[row, col] = num;
+                    matris[satir, sutun] = i;
 
-                    if (sudokuCoz(grid, sonuclar, row, col + 1, id))
+                    if (sudokuCoz(matris, sonuclar, satir, sutun + 1, id))
                     {
                         String yazilacak;
-                        yazilacak = ("[" + row + "," + col + " = " + num + "]");
+                        yazilacak = ("[" + satir + "," + sutun + " = " + i + "]");
                         Console.WriteLine(yazilacak);
                         using (System.IO.StreamWriter yaz = new System.IO.StreamWriter(@"C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\sonuclar" + id + ".txt", true))
                             yaz.WriteLine(yazilacak);
@@ -507,75 +502,75 @@ namespace yazlab2_deneme3
 
                 }
 
-                grid[row, col] = 0;
+                matris[satir, sutun] = 0;
             }
             return false;
         }
 
 
-        static void print(int[,] grid)
+        static void matrisiYazdir(int[,] matris)
         {
             Console.WriteLine("==============================");
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
-                    Console.Write(grid[i, j] + " ");
+                    Console.Write(matris[i, j] + " ");
                 Console.WriteLine();
             }
             Console.WriteLine("==============================");
         }
 
 
-        static bool isSafe(int[,] grid, List<int[,]> sonuclar, int row, int col,
-                           int num, int id)
+        static bool kontrolEt(int[,] matris, List<int[,]> sonuclar, int satir, int sutun,
+                           int kontrolSayisi, int id)
         {
 
             for (int x = 0; x <= 8; x++)
-                if (grid[row, x] == num)
+                if (matris[satir, x] == kontrolSayisi)
                     return false;
 
             for (int x = 0; x <= 8; x++)
-                if (grid[x, col] == num)
+                if (matris[x, sutun] == kontrolSayisi)
                     return false;
 
 
-            int startRow = row - row % 3, startCol
-              = col - col % 3;
+            int startRow = satir - satir % 3, startCol
+              = sutun - sutun % 3;
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
-                    if (grid[i + startRow, j + startCol] == num)
+                    if (matris[i + startRow, j + startCol] == kontrolSayisi)
                         return false;
 
 
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
-                    if (grid[i + startRow, j + startCol] == num)
+                    if (matris[i + startRow, j + startCol] == kontrolSayisi)
                         return false;
 
 
             if (id == 1)
             {
-                return tekrarKontrolu(grid, sonuclar, id);
+                return tekrarKontrolu(matris, sonuclar, id);
 
             }
             if (id == 2)
             {
-                return tekrarKontrolu(grid, sonuclar, id);
+                return tekrarKontrolu(matris, sonuclar, id);
 
             }
             if (id == 3)
             {
-                return tekrarKontrolu(grid, sonuclar, id);
+                return tekrarKontrolu(matris, sonuclar, id);
 
             }
             if (id == 4)
             {
-                return tekrarKontrolu(grid, sonuclar, id);
+                return tekrarKontrolu(matris, sonuclar, id);
 
             }
             if (id == 5)
             {
-                return tekrarKontrolu(grid, sonuclar, id);
+                return tekrarKontrolu(matris, sonuclar, id);
 
             }
 
@@ -584,7 +579,7 @@ namespace yazlab2_deneme3
         }
 
 
-        static bool tekrarKontrolu(int[,] grid, List<int[,]> sonuclar, int id)
+        static bool tekrarKontrolu(int[,] matris, List<int[,]> sonuclar, int id)
         {
             int sayac1 = 0;
             int ayniOlanSayilar = 0;
@@ -610,22 +605,18 @@ namespace yazlab2_deneme3
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (grid[i, j] == sonuclar[k][i, j] && (grid[i, j] != 0))
+                            if (matris[i, j] == sonuclar[k][i, j] && (matris[i, j] != 0))
                             {
                                 for (int l = 0; l < 9; l++)
                                 {
-                                    if (grid[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
+                                    if (matris[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
                                     {
                                         sayac1++;
                                     }
 
                                 }
 
-
-
-
                             }
-
 
                             if (sayac1 >= 8 - ayniOlanSayilar)
                             {
@@ -642,7 +633,6 @@ namespace yazlab2_deneme3
                 }
                 ayniOlanSayilar = 0;
             }
-
 
 
             if (id == 2)
@@ -663,22 +653,18 @@ namespace yazlab2_deneme3
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (grid[i, j] == sonuclar[k][i, j] && (grid[i, j] != 0))
+                            if (matris[i, j] == sonuclar[k][i, j] && (matris[i, j] != 0))
                             {
                                 for (int l = 0; l < 9; l++)
                                 {
-                                    if (grid[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
+                                    if (matris[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
                                     {
                                         sayac1++;
                                     }
 
                                 }
 
-
-
-
                             }
-
 
                             if (sayac1 >= 8 - ayniOlanSayilar)
                             {
@@ -714,22 +700,18 @@ namespace yazlab2_deneme3
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (grid[i, j] == sonuclar[k][i, j] && (grid[i, j] != 0))
+                            if (matris[i, j] == sonuclar[k][i, j] && (matris[i, j] != 0))
                             {
                                 for (int l = 0; l < 9; l++)
                                 {
-                                    if (grid[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
+                                    if (matris[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
                                     {
                                         sayac1++;
                                     }
 
                                 }
 
-
-
-
                             }
-
 
                             if (sayac1 >= 8 - ayniOlanSayilar)
                             {
@@ -758,24 +740,22 @@ namespace yazlab2_deneme3
 
                 }
 
-
                 for (int k = 0; k < sonuclar.Count; k++)
                 {
                     for (int i = 0; i < 3; i++)
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (grid[i, j] == sonuclar[k][i, j] && (grid[i, j] != 0))
+                            if (matris[i, j] == sonuclar[k][i, j] && (matris[i, j] != 0))
                             {
                                 for (int l = 0; l < 9; l++)
                                 {
-                                    if (grid[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
+                                    if (matris[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
                                     {
                                         sayac1++;
                                     }
                                 }
                             }
-
 
                             if (sayac1 >= 8 - ayniOlanSayilar)
                             {
@@ -805,25 +785,22 @@ namespace yazlab2_deneme3
 
                 }
 
-
                 for (int k = 0; k < sonuclar.Count; k++)
                 {
                     for (int i = 0; i < 3; i++)
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (grid[i, j] == sonuclar[k][i, j] && (grid[i, j] != 0))
+                            if (matris[i, j] == sonuclar[k][i, j] && (matris[i, j] != 0))
                             {
                                 for (int l = 0; l < 9; l++)
                                 {
-                                    if (grid[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
+                                    if (matris[i, j] != koseSayilari[0][l] && (koseSayilari[0][l] != 0))
                                     {
                                         sayac1++;
                                     }
                                 }
                             }
-
-
                             if (sayac1 >= 8 - ayniOlanSayilar)
                             {
                                 // Console.WriteLine("sayac =" + sayac1);
@@ -872,13 +849,13 @@ namespace yazlab2_deneme3
             }
         }
 
-        static void diziyiSifirla(int[,] grid, int[,] baslangicGrid)
+        static void diziyiSifirla(int[,] matris, int[,] baslangicMatris)
         {
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    grid[i, j] = baslangicGrid[i, j];
+                    matris[i, j] = baslangicMatris[i, j];
                 }
             }
         }
@@ -912,28 +889,28 @@ namespace yazlab2_deneme3
         static Boolean thread5 = false;
 
 
-        static List<TimeSpan> gecenSure= new List<TimeSpan>();
+        static List<TimeSpan> gecenSure = new List<TimeSpan>();
         static List<int> bulunanKareler = new List<int>();
 
         static void hesapla(int[,] sudoku1, int id)
         {
-            int[,] gridBaslangic = new int[9, 9];
+            int[,] baslangicMatris = new int[9, 9];
 
 
-            int[,] grid = new int[9, 9];
+            int[,] matris = new int[9, 9];
 
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    grid[i, j] = sudoku1[i, j];
-                    gridBaslangic[i, j] = sudoku1[i, j];
+                    matris[i, j] = sudoku1[i, j];
+                    baslangicMatris[i, j] = sudoku1[i, j];
                 }
             }
 
 
             List<int[,]> sonuclar = new List<int[,]>();
-            print(grid);
+            matrisiYazdir(matris);
 
 
             Boolean devam = true;
@@ -946,7 +923,7 @@ namespace yazlab2_deneme3
             while (devam)
             {
                 int[,] kontrolDizisi = new int[9, 9];
-                devam = hesapla(grid, sonuclar, id);
+                devam = hesapla(matris, sonuclar, id);
                 using (System.IO.StreamWriter yaz = new System.IO.StreamWriter(@"C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\sonuclar" + id + ".txt", true))
                     yaz.WriteLine("===========");
 
@@ -957,7 +934,7 @@ namespace yazlab2_deneme3
                 {
                     for (int j = 0; j < 9; j++)
                     {
-                        kontrolDizisi[i, j] = grid[i, j];
+                        kontrolDizisi[i, j] = matris[i, j];
                     }
                 }
 
@@ -990,7 +967,7 @@ namespace yazlab2_deneme3
                 }
                 sonuclar.Add(kontrolDizisi);
 
-                diziyiSifirla(grid, gridBaslangic);
+                diziyiSifirla(matris, baslangicMatris);
             }
 
 
@@ -1017,7 +994,7 @@ namespace yazlab2_deneme3
                 label1.Text = "1 .thread islemlerini " + sayac + " sonuc ile tamamladi. \nSüre: " + diff.ToString();
                 Form2.gecenSure.Add(diff);
                 Form2.bulunanKareler.Add(sayac);
-                Form2.siralama.Add(id);
+                Form2.siralama.Add(id-1);
                 thread1 = true;
             }
 
@@ -1031,9 +1008,9 @@ namespace yazlab2_deneme3
                     }
                 }
                 label2.Text = "2 .thread islemlerini " + sayac + " sonuc ile tamamladi. \nSüre: " + diff.ToString();
-              Form2.gecenSure.Add(diff);
+                Form2.gecenSure.Add(diff);
                 Form2.bulunanKareler.Add(sayac);
-                Form2.siralama.Add(id);
+                Form2.siralama.Add(id-1);
                 thread2 = true;
             }
             if (id == 3)
@@ -1048,7 +1025,7 @@ namespace yazlab2_deneme3
                 label3.Text = "3 .thread islemlerini " + sayac + " sonuc ile tamamladi. \nSüre: " + diff.ToString();
                 Form2.gecenSure.Add(diff);
                 Form2.bulunanKareler.Add(sayac);
-                Form2.siralama.Add(id);
+                Form2.siralama.Add(id-1);
                 thread3 = true;
             }
             if (id == 4)
@@ -1063,7 +1040,7 @@ namespace yazlab2_deneme3
                 label4.Text = "4 .thread islemlerini " + sayac + " sonuc ile tamamladi. \nSüre: " + diff.ToString();
                 Form2.gecenSure.Add(diff);
                 Form2.bulunanKareler.Add(sayac);
-                Form2.siralama.Add(id);
+                Form2.siralama.Add(id-1);
                 thread4 = true;
             }
             if (id == 5)
@@ -1078,7 +1055,7 @@ namespace yazlab2_deneme3
                 label5.Text = "5 .thread islemlerini " + sayac + " sonuc ile tamamladi. \nSüre: " + diff.ToString();
                 Form2.gecenSure.Add(diff);
                 Form2.bulunanKareler.Add(sayac);
-                Form2.siralama.Add(id);
+                Form2.siralama.Add(id-1);
                 thread5 = true;
             }
             threadKontrol();
@@ -1130,10 +1107,6 @@ namespace yazlab2_deneme3
                 }
 
             }
-
-
-
-
 
 
         }
