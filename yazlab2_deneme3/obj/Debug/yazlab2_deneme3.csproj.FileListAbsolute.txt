@@ -1,0 +1,11 @@
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\bin\Debug\yazlab2_deneme3.exe.config
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\bin\Debug\yazlab2_deneme3.exe
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\bin\Debug\yazlab2_deneme3.pdb
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.csproj.AssemblyReference.cache
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.Form1.resources
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.Properties.Resources.resources
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.csproj.GenerateResource.cache
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.csproj.CoreCompileInputs.cache
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.exe
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.pdb
+C:\Users\Alperen İmamoğlu\Source\Repos\yazlab2_deneme3\yazlab2_deneme3\obj\Debug\yazlab2_deneme3.Form2.resources
