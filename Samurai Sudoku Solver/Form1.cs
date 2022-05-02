@@ -81,8 +81,8 @@ namespace SamuraiSudokuSolver
             for (int i = 1; i < 6; i++)
             {
                 System.IO.File.WriteAllText("sonuclar" + i + ".txt", "");
-            }
-
+            } 
+             
 
             for (int i = 0; i < 21; i++)
             {
