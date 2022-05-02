@@ -1,10 +1,10 @@
 # Samurai Sudoku Solver
 
 - Samuray sudoku çözücü 
-- Txt dosyasına, uygun kalıpta verilen samuray sudokuları çözer 
+- Txt dosyasına, uygun kalıpta verilen samuray sudokularını çözer 
 - 5 ayrı sudoku için 5 ayrı thread kullanır.
 - Her çözüm adımını txt dosyasına kayıt eder.
-- Çözüm süreleri ve bulduğu çözümleri kayıt eder.
+- Çözüm süreleri ve bulduğu çözüm sayısını kayıt eder.
 
 ## Ekran Görüntüsü
 
